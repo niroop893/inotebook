@@ -1,0 +1,12 @@
+{
+    "location": "southindia",
+    "tags": {},
+    "id": "/subscriptions/5efff011-5351-479e-9c47-2a2742ea0559/resourcegroups/Test/providers/Microsoft.ManagedIdentity/userAssignedIdentities/Test",
+    "name": "Test",
+    "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
+    "properties": {
+        "tenantId": "76a2ae5a-9f00-4f6b-95ed-5d33d77c4d61",
+        "principalId": "a4d12762-b4e0-4d4f-a7cc-17ab514c2e28",
+        "clientId": "d5a51b03-722c-4554-84ea-f760c1791023"
+    }
+}
