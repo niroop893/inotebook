@@ -2,152 +2,38 @@ import React, { useState } from 'react';
 import NoteContext from './noteContext';
 
 const NoteState = (props) => {
-    
 
-    const notesInitial = [
-      {
-        "_id": "6721e3a886fd0ee38f83e1907",
-        "user": "67207cd8c70f9c820ef8c800",
-        "title": "First Title",
-        "description": "Frist title check",
-        "tag": "personal",
-        "date": "2024-10-30T07:43:36.348Z",
-        "__v": 0
-      },
-      {
-        "_id": "6721e6338f2b99241ffdd398f5",
-        "user": "67207cd8c70f9c82s0ef8c800",
-        "title": "First Title",
-        "description": "Third title check",
-        "tag": "personal",
-        "date": "2024-10-30T07:54:32.393Z",
-        "__v": 0
-      },
-      {
-        "_id": "6727607ae7175ef137cabc641",
-        "user": "67207cd8c70f9c820ef8c800",
-        "title": "Work Title",
-        "description": "work title check",
-        "tag": "work",
-        "date": "2024-11-03T05:18:38.928Z",
-        "__v": 0
-      },
-      {
-        "_id": "6721e3a86fd40ee38f83e1907",
-        "user": "67207cd8c70f9c820ef8c800",
-        "title": "First Title",
-        "description": "Frist title check",
-        "tag": "personal",
-        "date": "2024-10-30T07:43:36.348Z",
-        "__v": 0
-      },
-      {
-        "_id": "6721e638f12b9241ffdd398f5",
-        "user": "67207cd8c70f9c820ef8c800",
-        "title": "First Title",
-        "description": "Third title check",
-        "tag": "personal",
-        "date": "2024-10-30T07:54:32.393Z",
-        "__v": 0
-      },
-      {
-        "_id": "672707ae27175ef137cabc641",
-        "user": "67207cd8c70f9c820ef8c800",
-        "title": "Work Title",
-        "description": "work title check",
-        "tag": "work",
-        "date": "2024-11-03T05:18:38.928Z",
-        "__v": 0
-      },
-      {
-        "_id": "6721e3a86fd00ee38f83e1907",
-        "user": "67207cd8c70f9c820ef8c800",
-        "title": "First Title",
-        "description": "Frist title check",
-        "tag": "personal",
-        "date": "2024-10-30T07:43:36.348Z",
-        "__v": 0
-      },
-      {
-        "_id": "6721e6338f2b9241ffdd398f5",
-        "user": "67207cd8c70f9c820ef8c800",
-        "title": "First Title",
-        "description": "Third title check",
-        "tag": "personal",
-        "date": "2024-10-30T07:54:32.393Z",
-        "__v": 0
-      },
-      {
-        "_id": "672707ae71075ef137cabc641",
-        "user": "67207cd8c70f9c820ef8c800",
-        "title": "Work Title",
-        "description": "work title check",
-        "tag": "work",
-        "date": "2024-11-03T05:18:38.928Z",
-        "__v": 0
-      },
-      {
-        "_id": "6721e31a86fd0ee38f83e1907",
-        "user": "67207cd8c70f9c820ef8c800",
-        "title": "First Title",
-        "description": "Frist title check",
-        "tag": "personal",
-        "date": "2024-10-30T07:43:36.348Z",
-        "__v": 0
-      },
-      {
-        "_id": "6721e638f2b92417ffdd398f5",
-        "user": "67207cd8c70f9c820ef8c800",
-        "title": "First Title",
-        "description": "Third title check",
-        "tag": "personal",
-        "date": "2024-10-30T07:54:32.393Z",
-        "__v": 0
-      },
-      {
-        "_id": "6762707ae7175ef137cabc641",
-        "user": "67207cd8c70f9c820ef8c800",
-        "title": "Work Title",
-        "description": "work title check",
-        "tag": "work",
-        "date": "2024-11-03T05:18:38.928Z",
-        "__v": 0
-      },
-      {
-        "_id": "6721e3a846fd0ee38f83e1907",
-        "user": "67207cd8c70f9c820ef8c800",
-        "title": "First Title",
-        "description": "Frist title check",
-        "tag": "personal",
-        "date": "2024-10-30T07:43:36.348Z",
-        "__v": 0
-      },
-      {
-        "_id": "6721e638f2b29241ffdd398f5",
-        "user": "67207cd8c70f9c820ef8c800",
-        "title": "First Title",
-        "description": "Third title check",
-        "tag": "personal",
-        "date": "2024-10-30T07:54:32.393Z",
-        "__v": 0
-      },
-      {
-        "_id": "672707ae71375ef137ca272882bc641",
-        "user": "67207cd8c70f9c820ef8c800",
-        "title": "Work Title",
-        "description": "work title check",
-        "tag": "work",
-        "date": "2024-11-03T05:18:38.928Z",
-        "__v": 0
-      }
-    ]
-
+    const host = "http://localhost:5000"
+    const notesInitial = [ ]
     const [notes, setNotes] = useState(notesInitial);
 
+    //Get all Notes
+    const getNotes = async () =>{
+      const response = await fetch(`${host}/api/notes/fetchallnotes/`, {
+        method: "GET",
+        headers: {"Content-Type": "application/json",
+          "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjcyMDdjZDhjNzBmOWM4MjBlZjhjODAwIn0sImlhdCI6MTczMDI2ODU3OX0.1bgsKaN7smlqAoc08Ke1F90wJQE5Dj3kIifLlf4woF4"
+        }
+      });
+      const json = await response.json()
+      console.log(json)
+      setNotes(json)
+    }
+      
+     
     // Add a Note
-    const addNote = (title, description, tag) =>{
+    const addNote = async (title, description, tag) =>{
+      // eslint-disable-next-line
+      const response = await fetch(`${host}/api/notes/addnote/`, {
+                method: "POST",
+        body: JSON.stringify({title, description, tag}),
+        headers: {"Content-Type": "application/json",
+          "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjcyMDdjZDhjNzBmOWM4MjBlZjhjODAwIn0sImlhdCI6MTczMDI2ODU3OX0.1bgsKaN7smlqAoc08Ke1F90wJQE5Dj3kIifLlf4woF4"
+        },
+      });
+      
       const note = {
-        "_id": "672707ae71375ef137ca02bc641",
+        "_id": "6721e3a86fd0ee38f83e1907",
         "user": "67207cd8c70f9c820ef8c800",
         "title": title,
         "description": description,
@@ -165,15 +51,35 @@ const NoteState = (props) => {
       setNotes(newNotes)
     }
     //Edit a Note
-    const editNote = (id) =>{
-
+    const editNote = async (id, title, description, tag) =>{
+      const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
+        method: "POST",
+        body: JSON.stringify({title, description, tag}),
+        headers: {"Content-Type": "application/json",
+          "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjcyMDdjZDhjNzBmOWM4MjBlZjhjODAwIn0sImlhdCI6MTczMDI2ODU3OX0.1bgsKaN7smlqAoc08Ke1F90wJQE5Dj3kIifLlf4woF4"
+        },
+      });
+      // eslint-disable-next-line
+     const json = response.json();
+     
+     //
+      for (let index = 0; index < notes.length; index++) {
+        const element = notes[index];
+        if(element._id === id){
+          element.title = title;
+          element.description = description;
+          element.tag = tag;
+        }
+        
+      }
     }
 
     return (
-        <NoteContext.Provider value={{ notes, addNote, deleteNote, editNote }}>
+        <NoteContext.Provider value={{ notes, addNote, deleteNote, editNote, getNotes }}>
             {props.children}
         </NoteContext.Provider>
     );
-};
+  }
+
 
 export default NoteState;
