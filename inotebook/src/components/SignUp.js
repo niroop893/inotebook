@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import {useNavigate} from 'react-router-dom';
 
-const SignUp = () => {
+const SignUp = (props) => {
   const [credentials, setCredentials] = useState({name: "", email: "", password: "", cpassword: ""})
-  const navigate = useNavigate();
+  let navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     // API Call
-    const {name, email, password, cpassword} = credentials;
+    const {name, email, password} = credentials;
     const response = await fetch("http://localhost:5000/api/auth/createuser/", {
       method: "POST",
       headers: {
@@ -21,9 +21,10 @@ const SignUp = () => {
       //save auth token and redirect
       localStorage.setItem('token', json.authToken);
       navigate('/')
+      props.showAlert("Account created Successfully", "success")
     }
     else {
-      console.log("logged in")
+      props.showAlert("Invalid Credentials", "danger")
     }
   };
 
@@ -32,7 +33,8 @@ const SignUp = () => {
     setCredentials({...credentials, [e.target.name]: e.target.value})
 };
   return (
-    <div className="conatiner">
+    <div className="container mt-2">
+      <h2 className="my-2">Create account to use to iNotebook</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="name" className="form-label">
@@ -76,8 +78,8 @@ const SignUp = () => {
             id="password"
             name="password"
             onChange={onChange}
-            required
-            minLenght={5}
+            required={true}
+            minlenght={5}
           />
         </div>
         <div className="mb-3">
@@ -90,8 +92,8 @@ const SignUp = () => {
             id="cpassword"
             name="cpassword"
             onChange={onChange}
-            required
-            minLength={5}
+            required={true}
+            minlenght={5}
           />
         </div>
         
